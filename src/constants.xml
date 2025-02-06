@@ -34,6 +34,14 @@
        This value will be overridden by user settings. -->
   <AutoStartConversion type="boolean">false</AutoStartConversion>
 
+  <!-- Defines which preset must be used.
+       Using nvidia or amd on appropriate hardware
+       might significantly speed up convertion process
+       0 - default
+       1 - nvidia (nvenc)
+       2 - amd (amf) -->
+  <UsePreset type="integer">0</UsePreset>
+
   <!-- default folder name to create when setting output path -->
   <NewFolderName>qwinff_output</NewFolderName>
 

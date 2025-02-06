@@ -675,7 +675,22 @@ bool MainWindow::load_presets()
     // /usr/share/qwinff or C:\Users\user\.qwinff
 
     // The default preset file is located in <datapath>/presets.xml
-    QString default_preset_file = QDir(Paths::dataPath()).absoluteFilePath("presets.xml");
+
+    QString default_preset_file_name = "presets.xml";
+    QString nvidia_preset_file_name = "presets-nvidia.xml";
+    QString amd_preset_file_name = "presets-amd.xml";
+
+    QString file_name = default_preset_file_name;
+    QSettings settings;
+
+    int use_preset = settings.value("options/use_preset").toInt();
+    if(use_preset == 1){
+        file_name = nvidia_preset_file_name;
+    } else if(use_preset == 2) {
+        file_name = amd_preset_file_name;
+    }
+
+    QString default_preset_file = QDir(Paths::dataPath()).absoluteFilePath(file_name);
 
     QString local_preset_file;
     if (!Constants::getBool("Portable")) { // non-portable app
@@ -697,7 +712,6 @@ bool MainWindow::load_presets()
         local_preset_file = default_preset_file;
     }
 
-    QSettings settings;
     bool removeUnavailableCodecs = settings.value("options/hideformats", true).toBool();
     // Load the preset file from the user's home directory
     // The presets are loaded once and shared between objects

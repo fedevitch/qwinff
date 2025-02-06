@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QHeaderView>
+#include <QtNumeric>
 
 OptionsDialog::OptionsDialog(QWidget *parent) :
     QDialog(parent),
@@ -89,7 +90,17 @@ void OptionsDialog::read_fields()
     }
 #endif
 
-    // ToDo: add hwacceloption
+    // hwacceloption
+    const int usePreset = settings.value("options/use_preset",
+                                           Constants::getInteger("UsePreset")).toInt();
+
+    if(usePreset < 0 || usePreset > 2) {
+        ui->presetDefault->setChecked(true);
+    } else {
+        ui->presetDefault->setChecked(usePreset == 0);
+        ui->presetNvidia->setChecked(usePreset == 1);
+        ui->presetAmd->setChecked(usePreset == 2);
+    }
 }
 
 void OptionsDialog::write_fields()
@@ -100,7 +111,18 @@ void OptionsDialog::write_fields()
     settings.setValue("options/check_update_on_startup", ui->chkCheckUpdates->isChecked());
     settings.setValue("options/auto_start_conversion", ui->chkAutoStartConversion->isChecked());
 
-    // ToDo: add hwacceloption
+    // hwacceloption
+    int preset = 0;
+    if(ui->presetDefault->isChecked()){
+        preset = 0;
+    } else if(ui->presetNvidia->isChecked()) {
+        preset = 1;
+    } else if(ui->presetAmd->isChecked()) {
+        preset = 2;
+    }
+    settings.setValue("options/use_preset", preset);
+
+
 
 #ifndef TOOLS_IN_DATA_PATH
     // table to ExePath
