@@ -672,6 +672,8 @@ int MainWindow::get_poweroff_behavior()
 
 bool MainWindow::load_presets()
 {
+    // /usr/share/qwinff or C:\Users\user\.qwinff
+
     // The default preset file is located in <datapath>/presets.xml
     QString default_preset_file = QDir(Paths::dataPath()).absoluteFilePath("presets.xml");
 

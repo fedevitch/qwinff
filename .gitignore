@@ -4,3 +4,6 @@
 /build/
 *.o
 *.qm
+.vscode
+src/.qmake.stash
+src/build/

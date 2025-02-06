@@ -88,6 +88,8 @@ void OptionsDialog::read_fields()
         item_path->setText(ExePath::getPath(item_program->text()));
     }
 #endif
+
+    // ToDo: add hwacceloption
 }
 
 void OptionsDialog::write_fields()
@@ -97,6 +99,8 @@ void OptionsDialog::write_fields()
     settings.setValue("options/hideformats", ui->chkHideFormats->isChecked());
     settings.setValue("options/check_update_on_startup", ui->chkCheckUpdates->isChecked());
     settings.setValue("options/auto_start_conversion", ui->chkAutoStartConversion->isChecked());
+
+    // ToDo: add hwacceloption
 
 #ifndef TOOLS_IN_DATA_PATH
     // table to ExePath
